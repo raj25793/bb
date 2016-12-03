@@ -5,11 +5,11 @@ import java.util.List;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
-import org.test.falcon.mongo.document.Feed;
+import org.test.falcon.mongo.document.MasterDevice;
 
-public interface FeedDao extends MongoRepository<Feed, String> {
+public interface FeedDao extends MongoRepository<MasterDevice, String> {
 
     @Query(value = "{'createdAt' : { '$gt' : ?0 , '$lte' : ?1}}")
-    List<Feed> findByCreatedAtBetween(Date startTime, Date endTime);
+    List<MasterDevice> findByCreatedAtBetween(Date startTime, Date endTime);
 
 }

@@ -2,19 +2,19 @@ package org.test.falcon.mongo.document;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
+import org.test.falcon.enums.DocumentTypes;
 
-import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-@JsonFilter("fieldFilter")
 @JsonInclude(value = Include.NON_NULL)
 @Document(collection = "feed")
-public class Feed implements Serializable {
+public class MasterDevice implements Serializable {
 
     /**
      * 
@@ -23,14 +23,32 @@ public class Feed implements Serializable {
 
     @Id
     private String            id;
+    
+    @Field(value = "doc_type")
+    private final DocumentTypes docType = DocumentTypes.FEED;
 
-    @Field(value = "name")
-    private String            name;
+    @Field(value = "master_identifier")
+    private String            uniqueDeviceId;
+    
+    @Field(value = "children_readings")
+    private List<ChildDevice> childDevices;
 
     @Field(value = "created_at")
     private Date              createdAt;
 
-    public Date getCreatedAt() {
+    public List<ChildDevice> getChildDevices() {
+		return childDevices;
+	}
+
+	public void setChildDevices(List<ChildDevice> childDevices) {
+		this.childDevices = childDevices;
+	}
+
+	public DocumentTypes getDocType() {
+		return docType;
+	}
+
+	public Date getCreatedAt() {
         return createdAt;
     }
 
@@ -46,12 +64,12 @@ public class Feed implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
+	public String getUniqueDeviceId() {
+		return uniqueDeviceId;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setUniqueDeviceId(String uniqueDeviceId) {
+		this.uniqueDeviceId = uniqueDeviceId;
+	}
 
 }
