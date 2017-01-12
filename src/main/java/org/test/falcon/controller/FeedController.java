@@ -30,7 +30,8 @@ public class FeedController {
     @ResponseBody
     public GenericApiResponse getFeed(
             @RequestParam(value = "startTime", required = true) long startTime,
-            @RequestParam(value = "endTime", required = true) long endTime) {
+            @RequestParam(value = "endTime", required = true) long endTime,
+            @RequestParam(value = "deviceId", required = true) String deviceId) {
     	List<MasterDevice> feeds = feedService.getFeeds(new Date(startTime), new Date(endTime));
         return new GenericApiResponse(feeds);
     }
