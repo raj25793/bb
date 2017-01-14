@@ -51,6 +51,9 @@ public class FeedController {
     @RequestMapping(value = "/v1/feed", method = RequestMethod.POST)
     @ResponseBody
     public GenericApiResponse postFeed(@RequestBody MasterDevice feed) {
+    	if(feed.getCreatedAt() == null){
+    		feed.setCreatedAt(new Date());
+    	}
         List<MasterDevice> savedFeeds = feedService.insertFeeds(Arrays.asList(feed));
         if (savedFeeds != null && !savedFeeds.isEmpty()) {
             return new GenericApiResponse(true);
