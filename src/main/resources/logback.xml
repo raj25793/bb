@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration debug="true">
-	<appender name="dossier"
+	<appender name="falcon"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<file>/var/log/falcon/falcon.log</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">

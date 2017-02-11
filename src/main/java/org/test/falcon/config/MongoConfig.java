@@ -11,6 +11,16 @@ import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
 import com.mongodb.Mongo;
 import com.mongodb.MongoClient;
 import com.mongodb.WriteConcern;
+// Command for creting user
+//use admin
+//
+//db.createUser(
+//        {
+//          user: "superuser",
+//          pwd: "superuser",
+//          roles: [ "readWrite", "dbAdmin" ]
+//        }
+//     )
 
 @Configuration
 public class MongoConfig extends AbstractMongoConfiguration {
