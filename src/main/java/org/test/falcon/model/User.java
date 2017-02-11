@@ -2,11 +2,8 @@ package org.test.falcon.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
-@Entity
-@Table(name="user")
+//@Entity
+//@Table(name="user")
 public class User implements Serializable{
 
 	/**
