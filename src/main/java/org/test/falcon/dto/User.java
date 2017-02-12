@@ -1,4 +1,4 @@
-package org.test.falcon.model;
+package org.test.falcon.dto;
 
 import java.io.Serializable;
 

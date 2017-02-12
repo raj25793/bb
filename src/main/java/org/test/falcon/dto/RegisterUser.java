@@ -1,7 +1,5 @@
 package org.test.falcon.dto;
 
-import org.test.falcon.model.User;
-
 public class RegisterUser extends User {
 
     /**

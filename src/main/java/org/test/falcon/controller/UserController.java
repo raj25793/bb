@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.test.falcon.constant.ResponseCodes;
 import org.test.falcon.constant.ResponseErrorMessages;
 import org.test.falcon.dto.RegisterUser;
+import org.test.falcon.dto.User;
 import org.test.falcon.exception.UnauthorizedException;
 import org.test.falcon.model.LoginObject;
-import org.test.falcon.model.User;
 import org.test.falcon.pojo.response.GenericApiResponse;
 
 import io.swagger.annotations.Api;
