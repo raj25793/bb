@@ -27,10 +27,10 @@ public class MasterDevice implements Serializable {
     @Field(value = "doc_type")
     private final DocumentTypes docType = DocumentTypes.FEED;
 
-    @Field(value = "master_identifier")
+    @Field(value = "master_id")
     private String            uniqueDeviceId;
     
-    @Field(value = "children_readings")
+    @Field(value = "readings")
     private List<ChildDevice> childDevices;
 
     @Field(value = "created_at")

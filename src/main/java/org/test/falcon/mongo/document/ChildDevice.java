@@ -18,7 +18,7 @@ public class ChildDevice implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	@Field(value = "child_identifier")
+	@Field(value = "child_id")
 	private String uniqId;
 	
 	@Field(value = "readings")
