@@ -28,8 +28,10 @@ public class SurveyLeadServiceImpl implements SurveyLeadService {
     @Override
     public Lead insertLead(Lead surveyLead) {
 
+        // TODO need to add check on email validity
+        // TODO need to add otp verification flow
         User user = null;
-        if (surveyLead.getPhone().isEmpty() || surveyLead.getPhone() == null) {
+        if (surveyLead.getPhone() == null || surveyLead.getPhone().isEmpty()) {
             throw new ProAPIException("Phone no. is required.");
         }
         user = userService.findUserByPhone(surveyLead.getPhone());
