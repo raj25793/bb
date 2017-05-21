@@ -7,39 +7,45 @@ import org.test.falcon.constant.ResponseCode;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
-public class GenericApiResponse implements Serializable{
+public class GenericApiResponse implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	@JsonInclude(value = Include.ALWAYS)
-	private Object data;
-	
-	@JsonInclude(value = Include.ALWAYS)
-	private String statusCode;
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
 
-	public GenericApiResponse(Object data) {
-		super();
-		this.data = data;
-		this.statusCode = ResponseCode.SUCCESS;
-	}
+    @JsonInclude(value = Include.ALWAYS)
+    private Object            data;
 
-	public Object getData() {
-		return data;
-	}
+    @JsonInclude(value = Include.ALWAYS)
+    private String            statusCode;
 
-	public void setData(Object data) {
-		this.data = data;
-	}
+    public GenericApiResponse(Object data) {
+        super();
+        this.data = data;
+        this.statusCode = ResponseCode.SUCCESS;
+    }
 
-	public String getStatusCode() {
-		return statusCode;
-	}
+    public GenericApiResponse(Object data, String statusCode) {
+        super();
+        this.data = data;
+        this.statusCode = statusCode;
+    }
 
-	public void setStatusCode(String statusCode) {
-		this.statusCode = statusCode;
-	}
+    public Object getData() {
+        return data;
+    }
+
+    public void setData(Object data) {
+        this.data = data;
+    }
+
+    public String getStatusCode() {
+        return statusCode;
+    }
+
+    public void setStatusCode(String statusCode) {
+        this.statusCode = statusCode;
+    }
 
 }

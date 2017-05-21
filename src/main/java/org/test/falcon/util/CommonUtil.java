@@ -5,27 +5,15 @@ import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import javax.swing.SortOrder;
-
 import org.bson.types.ObjectId;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
-import org.test.falcon.constant.Constant;
 import org.test.falcon.exception.ProAPIException;
-
-import com.mchange.v2.util.CollectionUtils;
-
-
 
 public class CommonUtil {
 
@@ -106,7 +94,6 @@ public class CommonUtil {
         }
     }
 
-
     public static boolean isCriteriaNotEmpty(Criteria criteria) {
         return !criteria.getCriteriaObject().keySet().isEmpty();
     }
@@ -125,7 +112,6 @@ public class CommonUtil {
             update.set(fieldName, value);
         }
     }
-
 
     public static String wrapResponseTag(String tune) {
         return "<response>" + tune.replaceAll("\n", "") + "</response>";

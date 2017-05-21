@@ -15,13 +15,13 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class SwaggerConfiguration {
 
     @Bean
-    public Docket documentation(){
+    public Docket documentation() {
         return new Docket(DocumentationType.SWAGGER_2).select().apis(RequestHandlerSelectors.any()).build()
                 .apiInfo(metaData()).forCodeGeneration(true);
     }
 
     private ApiInfo metaData() {
-        return new ApiInfoBuilder().title("Falcon Apis").version("v1").build();
+        return new ApiInfoBuilder().title("Falcon Apis").version("A").build();
     }
 
 }

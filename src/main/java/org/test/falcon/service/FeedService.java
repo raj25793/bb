@@ -9,6 +9,6 @@ public interface FeedService {
 
     List<MasterDevice> getFeeds(Date startTime, Date endTime);
 
-    List<MasterDevice> insertFeeds(List<MasterDevice> feeds);
+    boolean insertFeeds(List<MasterDevice> feeds);
 
 }

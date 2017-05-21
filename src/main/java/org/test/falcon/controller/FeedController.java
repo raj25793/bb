@@ -32,7 +32,7 @@ public class FeedController {
             @RequestParam(value = "startTime", required = true) long startTime,
             @RequestParam(value = "endTime", required = true) long endTime,
             @RequestParam(value = "deviceId", required = true) String deviceId) {
-    	List<MasterDevice> feeds = feedService.getFeeds(new Date(startTime), new Date(endTime));
+        List<MasterDevice> feeds = feedService.getFeeds(new Date(startTime), new Date(endTime));
         return new GenericApiResponse(feeds);
     }
 
@@ -40,25 +40,16 @@ public class FeedController {
     @RequestMapping(value = "/v1/feeds", method = RequestMethod.POST)
     @ResponseBody
     public GenericApiResponse postFeeds(@RequestBody List<MasterDevice> feeds) {
-        List<MasterDevice> savedFeeds = feedService.insertFeeds(feeds);
-        if (savedFeeds != null && !savedFeeds.isEmpty()) {
-            return new GenericApiResponse(true);
-        }
-        return new GenericApiResponse(false);
+        boolean success = feedService.insertFeeds(feeds);
+        return new GenericApiResponse(success);
     }
-    
+
     @ApiOperation(value = "Post feed")
     @RequestMapping(value = "/v1/feed", method = RequestMethod.POST)
     @ResponseBody
     public GenericApiResponse postFeed(@RequestBody MasterDevice feed) {
-    	if(feed.getCreatedAt() == null){
-    		feed.setCreatedAt(new Date());
-    	}
-        List<MasterDevice> savedFeeds = feedService.insertFeeds(Arrays.asList(feed));
-        if (savedFeeds != null && !savedFeeds.isEmpty()) {
-            return new GenericApiResponse(true);
-        }
-        return new GenericApiResponse(false);
+        boolean success = feedService.insertFeeds(Arrays.asList(feed));
+        return new GenericApiResponse(success);
     }
 
 }

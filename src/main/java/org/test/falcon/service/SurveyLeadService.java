@@ -1,9 +1,9 @@
 package org.test.falcon.service;
 
-import org.test.falcon.model.SurveyLead;
+import org.test.falcon.mongo.document.Lead;
 
 public interface SurveyLeadService {
 
-    SurveyLead insertLead(SurveyLead surveyLead);
+    Lead insertLead(Lead surveyLead);
 
 }

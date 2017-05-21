@@ -7,6 +7,10 @@ import org.springframework.data.mongodb.MongoDbFactory;
 import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
+import org.springframework.data.mongodb.core.convert.DefaultDbRefResolver;
+import org.springframework.data.mongodb.core.convert.DefaultMongoTypeMapper;
+import org.springframework.data.mongodb.core.convert.MappingMongoConverter;
+import org.springframework.data.mongodb.core.mapping.MongoMappingContext;
 
 import com.mongodb.Mongo;
 import com.mongodb.MongoClient;
@@ -65,14 +69,17 @@ public class MongoConfig extends AbstractMongoConfiguration {
                 getDatabaseName());
     }
 
-
     @Override
     @Bean
     public MongoTemplate mongoTemplate() throws Exception {
-        MongoTemplate mongoTemplate = new MongoTemplate(mongoDbFactory());
+        // to remove the _class field from mongo
+        MappingMongoConverter converter =
+                new MappingMongoConverter(new DefaultDbRefResolver(mongoDbFactory()), new MongoMappingContext());
+        converter.setTypeMapper(new DefaultMongoTypeMapper(null));
+        MongoTemplate mongoTemplate = new MongoTemplate(mongoDbFactory(), converter);
         mongoTemplate.setWriteConcern(new WriteConcern(writeConcern));
         return mongoTemplate;
-        
+
     }
 
 }
