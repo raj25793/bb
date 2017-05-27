@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 import org.test.falcon.constant.Constant;
-import org.test.falcon.mongo.document.MasterDevice;
+import org.test.falcon.mongo.document.MasterDeviceFeed;
 import org.test.falcon.service.FeedService;
 import org.test.falcon.util.CommonUtil;
 
@@ -21,19 +21,19 @@ public class FeedServiceImpl implements FeedService {
     private MongoTemplate mongoTemplate;
 
     @Override
-    public List<MasterDevice> getFeeds(Date startTime, Date endTime) {
+    public List<MasterDeviceFeed> getFeeds(Date startTime, Date endTime) {
         ObjectId fromTime = CommonUtil.getObjectIdByTime(startTime);
         ObjectId toTime = CommonUtil.getObjectIdByTime(endTime);
         Query query = new Query(Criteria.where(Constant.ID).gte(fromTime).lte(toTime));
-        List<MasterDevice> feeds = mongoTemplate.find(query, MasterDevice.class);
+        List<MasterDeviceFeed> feeds = mongoTemplate.find(query, MasterDeviceFeed.class);
         return feeds;
     }
 
     @Override
-    public boolean insertFeeds(List<MasterDevice> feeds) {
+    public boolean insertFeeds(List<MasterDeviceFeed> feeds) {
         boolean success = true;
         try {
-            mongoTemplate.insert(feeds, MasterDevice.class);
+            mongoTemplate.insert(feeds, MasterDeviceFeed.class);
         }
         catch (Exception e) {
             success = false;

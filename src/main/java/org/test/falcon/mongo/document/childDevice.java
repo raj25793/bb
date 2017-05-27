@@ -1,7 +1,6 @@
 package org.test.falcon.mongo.document;
 
 import java.util.Date;
-import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Field;
@@ -11,16 +10,13 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @JsonInclude(value = Include.NON_NULL)
-public class MasterDevice {
-
+public class childDevice {
+	
 	@Id
 	private String deviceId;
 	
 	@Field(value = "type")
-	private DeviceType type;
-	
-	@Field(value = "cds")
-	private List<childDevice> childDevices;
+	private DeviceType deviceType;
 	
 	@Field(value = "created_at")
 	private Date createdAt;
@@ -33,20 +29,12 @@ public class MasterDevice {
 		this.deviceId = deviceId;
 	}
 
-	public DeviceType getType() {
-		return type;
+	public DeviceType getDeviceType() {
+		return deviceType;
 	}
 
-	public void setType(DeviceType type) {
-		this.type = type;
-	}
-
-	public List<childDevice> getChildDevices() {
-		return childDevices;
-	}
-
-	public void setChildDevices(List<childDevice> childDevices) {
-		this.childDevices = childDevices;
+	public void setDeviceType(DeviceType deviceType) {
+		this.deviceType = deviceType;
 	}
 
 	public Date getCreatedAt() {
@@ -56,5 +44,5 @@ public class MasterDevice {
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
 	}
-	
+
 }

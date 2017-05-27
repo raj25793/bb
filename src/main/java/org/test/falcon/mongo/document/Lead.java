@@ -2,6 +2,7 @@ package org.test.falcon.mongo.document;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
@@ -85,8 +86,30 @@ public class Lead implements Serializable {
 
     @Field(value = "comm_date")
     private Date                        commissioningDate;
+    
+    @Field(value = "main_devs")
+    private List<MasterDevice> masterDevices;
+    
+    @Field(value = "individual_devs")
+    private List<childDevice> childDevices;
 
-    public String getId() {
+    public List<MasterDevice> getMasterDevices() {
+		return masterDevices;
+	}
+
+	public void setMasterDevices(List<MasterDevice> masterDevices) {
+		this.masterDevices = masterDevices;
+	}
+
+	public List<childDevice> getChildDevices() {
+		return childDevices;
+	}
+
+	public void setChildDevices(List<childDevice> childDevices) {
+		this.childDevices = childDevices;
+	}
+
+	public String getId() {
         return id;
     }
 
