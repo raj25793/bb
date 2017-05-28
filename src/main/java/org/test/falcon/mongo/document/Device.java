@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @JsonInclude(value = Include.NON_NULL)
-public class MasterDevice {
+public class Device {
 
 	@Id
 	private String deviceId;
@@ -20,7 +20,7 @@ public class MasterDevice {
 	private DeviceType type;
 	
 	@Field(value = "cds")
-	private List<childDevice> childDevices;
+	private List<ChildDevice> childDevices;
 	
 	@Field(value = "created_at")
 	private Date createdAt;
@@ -41,11 +41,11 @@ public class MasterDevice {
 		this.type = type;
 	}
 
-	public List<childDevice> getChildDevices() {
+	public List<ChildDevice> getChildDevices() {
 		return childDevices;
 	}
 
-	public void setChildDevices(List<childDevice> childDevices) {
+	public void setChildDevices(List<ChildDevice> childDevices) {
 		this.childDevices = childDevices;
 	}
 

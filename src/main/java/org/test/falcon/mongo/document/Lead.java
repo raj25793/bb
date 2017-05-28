@@ -86,30 +86,19 @@ public class Lead implements Serializable {
 
     @Field(value = "comm_date")
     private Date                        commissioningDate;
-    
-    @Field(value = "main_devs")
-    private List<MasterDevice> masterDevices;
-    
-    @Field(value = "individual_devs")
-    private List<childDevice> childDevices;
 
-    public List<MasterDevice> getMasterDevices() {
-		return masterDevices;
-	}
+    @Field(value = "devices")
+    private List<Device>                devices;
 
-	public void setMasterDevices(List<MasterDevice> masterDevices) {
-		this.masterDevices = masterDevices;
-	}
+    public List<Device> getDevices() {
+        return devices;
+    }
 
-	public List<childDevice> getChildDevices() {
-		return childDevices;
-	}
+    public void setDevices(List<Device> devices) {
+        this.devices = devices;
+    }
 
-	public void setChildDevices(List<childDevice> childDevices) {
-		this.childDevices = childDevices;
-	}
-
-	public String getId() {
+    public String getId() {
         return id;
     }
 
