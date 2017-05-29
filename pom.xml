@@ -11,8 +11,8 @@
 		<spring.version>4.2.5.RELEASE</spring.version>
 		<jackson.version>2.7.1</jackson.version>
 		<hibernate.version>5.0.8.Final</hibernate.version>
-		<findbugs.version>3.0.1</findbugs.version>
-		<pmd.version>3.4</pmd.version>
+<!-- 		<findbugs.version>3.0.1</findbugs.version>
+ -->		<pmd.version>3.4</pmd.version>
 		<surefire.version>2.12.4</surefire.version>
 		<skipTests>false</skipTests>
 		<swagger.version>2.1.2</swagger.version>
@@ -216,23 +216,23 @@
 					</execution>
 				</executions>
 			</plugin>
-			<plugin>
+			<!-- <plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>findbugs-maven-plugin</artifactId>
 				<version>${findbugs.version}</version>
 				<configuration>
-					<!-- Enables analysis which takes more memory but finds more bugs. If 
-						you run out of memory, changes the value of the effort element to 'Low'. -->
+					Enables analysis which takes more memory but finds more bugs. If 
+						you run out of memory, changes the value of the effort element to 'Low'.
 					<effort>Max</effort>
-					<!-- dossier all bugs (other values are medium and max) -->
+					dossier all bugs (other values are medium and max)
 					<threshold>High</threshold>
-					<!-- Produces XML report -->
+					Produces XML report
 					<xmlOutput>true</xmlOutput>
-					<!-- Configures the directory in which the XML report is created -->
+					Configures the directory in which the XML report is created
 					<findbugsXmlOutputDirectory>${project.build.directory}/findbugs</findbugsXmlOutputDirectory>
 				</configuration>
 				<executions>
-					<!-- Ensures that FindBugs inspects source code when project is compiled. -->
+					Ensures that FindBugs inspects source code when project is compiled.
 					<execution>
 						<id>analyze-compile</id>
 						<phase>verify</phase>
@@ -241,7 +241,7 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>
+			</plugin> -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-pmd-plugin</artifactId>
