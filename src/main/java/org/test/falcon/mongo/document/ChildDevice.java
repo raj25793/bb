@@ -1,5 +1,6 @@
 package org.test.falcon.mongo.document;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import org.springframework.data.annotation.Id;
@@ -10,39 +11,44 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @JsonInclude(value = Include.NON_NULL)
-public class ChildDevice {
-	
-	@Id
-	private String deviceId;
-	
-	@Field(value = "type")
-	private DeviceType deviceType;
-	
-	@Field(value = "created_at")
-	private Date createdAt;
+public class ChildDevice implements Serializable {
 
-	public String getDeviceId() {
-		return deviceId;
-	}
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 1L;
 
-	public void setDeviceId(String deviceId) {
-		this.deviceId = deviceId;
-	}
+    @Id
+    private String            deviceId;
 
-	public DeviceType getDeviceType() {
-		return deviceType;
-	}
+    @Field(value = "type")
+    private DeviceType        deviceType;
 
-	public void setDeviceType(DeviceType deviceType) {
-		this.deviceType = deviceType;
-	}
+    @Field(value = "created_at")
+    private Date              createdAt;
 
-	public Date getCreatedAt() {
-		return createdAt;
-	}
+    public String getDeviceId() {
+        return deviceId;
+    }
 
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
-	}
+    public void setDeviceId(String deviceId) {
+        this.deviceId = deviceId;
+    }
+
+    public DeviceType getDeviceType() {
+        return deviceType;
+    }
+
+    public void setDeviceType(DeviceType deviceType) {
+        this.deviceType = deviceType;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
 
 }
