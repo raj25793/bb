@@ -1,5 +1,6 @@
 package org.test.falcon.dw.service;
 
+import java.text.ParseException;
 import java.util.List;
 
 import org.test.falcon.dw.dto.TrendDto;
@@ -13,6 +14,6 @@ public interface TrendService {
             String toTime,
             String deviceId,
             RangeType rangeType,
-            PowerType powerType);
+            PowerType powerType) throws ParseException;
 
 }

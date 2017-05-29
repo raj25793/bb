@@ -1,8 +1,12 @@
 package org.test.falcon.dw.service.impl;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.stereotype.Service;
 import org.test.falcon.dw.dto.TrendDto;
@@ -13,27 +17,33 @@ import org.test.falcon.mongo.Enum.RangeType;
 @Service
 public class TrendServiceImpl implements TrendService {
 
+    private static final SimpleDateFormat REDSHIFT_DATE_FORMATTER = new SimpleDateFormat("yyyyMMddHHmm");
+
     @Override
     public List<TrendDto> getDataPoints(
             String fromTime,
             String toTime,
             String deviceId,
             RangeType rangeType,
-            PowerType powerType) {
-        List<TrendDto> data = getData(rangeType, powerType);
+            PowerType powerType) throws ParseException {
+        Date from = REDSHIFT_DATE_FORMATTER.parse(fromTime);
+        Date to = REDSHIFT_DATE_FORMATTER.parse(toTime);
+        long diff = to.getTime() - from.getTime();
+        long daysDiff = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+        List<TrendDto> data = getData(rangeType, powerType, daysDiff);
         return data;
     }
 
-    private List<TrendDto> getData(RangeType rangeType, PowerType powerType) {
+    private List<TrendDto> getData(RangeType rangeType, PowerType powerType, long daysDiff) {
         List<TrendDto> data = new ArrayList<>();
         if (RangeType.MINUTE.equals(rangeType)) {
-            getMinuteWiseData(powerType, data);
+            getMinuteWiseData(powerType, data, daysDiff);
         }
         else if (RangeType.HOUR.equals(rangeType)) {
-            getHourWiseData(powerType, data);
+            getHourWiseData(powerType, data, daysDiff);
         }
         else if (RangeType.DAY.equals(rangeType)) {
-            getDayWiseData(powerType, data);
+            getDayWiseData(powerType, data, daysDiff);
         }
         else if (RangeType.MONTH.equals(rangeType)) {
             getMonthWiseData(powerType, data);
@@ -109,10 +119,10 @@ public class TrendServiceImpl implements TrendService {
 
     }
 
-    private void getDayWiseData(PowerType powerType, List<TrendDto> data) {
+    private void getDayWiseData(PowerType powerType, List<TrendDto> data, long daysDiff) {
 
         if (powerType != null) {
-            for (int i = 0; i < 30; i++) {
+            for (int i = 0; i < daysDiff; i++) {
                 TrendDto dto = new TrendDto();
                 double randomNum = ThreadLocalRandom.current().nextInt(200, 240 + 1);
                 dto.setConsumedPower(randomNum);
@@ -126,7 +136,7 @@ public class TrendServiceImpl implements TrendService {
         }
         else {
             if (PowerType.GENERATION.equals(powerType)) {
-                for (int i = 0; i < 30; i++) {
+                for (int i = 0; i < daysDiff; i++) {
                     TrendDto dto = new TrendDto();
                     double randomNumGen = ThreadLocalRandom.current().nextInt(100, 200 + 1);
                     dto.setGenPower(randomNumGen);
@@ -137,7 +147,7 @@ public class TrendServiceImpl implements TrendService {
                 }
             }
             else {
-                for (int i = 0; i < 30; i++) {
+                for (int i = 0; i < daysDiff; i++) {
                     TrendDto dto = new TrendDto();
                     double randomNum = ThreadLocalRandom.current().nextInt(200, 240 + 1);
                     dto.setConsumedPower(randomNum);
@@ -151,9 +161,9 @@ public class TrendServiceImpl implements TrendService {
 
     }
 
-    private void getHourWiseData(PowerType powerType, List<TrendDto> data) {
+    private void getHourWiseData(PowerType powerType, List<TrendDto> data, long daysDiff) {
         if (powerType != null) {
-            for (int i = 0; i < 30; i++) {
+            for (int i = 0; i < daysDiff; i++) {
                 for (int j = 0; j < 24; j++) {
                     TrendDto dto = new TrendDto();
                     double randomNum = ThreadLocalRandom.current().nextInt(200, 240 + 1);
@@ -171,7 +181,7 @@ public class TrendServiceImpl implements TrendService {
         }
         else {
             if (PowerType.GENERATION.equals(powerType)) {
-                for (int i = 0; i < 30; i++) {
+                for (int i = 0; i < daysDiff; i++) {
                     for (int j = 0; j < 24; j++) {
                         TrendDto dto = new TrendDto();
                         double randomNumGen = ThreadLocalRandom.current().nextInt(100, 200 + 1);
@@ -186,7 +196,7 @@ public class TrendServiceImpl implements TrendService {
                 }
             }
             else {
-                for (int i = 0; i < 30; i++) {
+                for (int i = 0; i < daysDiff; i++) {
                     for (int j = 0; j < 24; j++) {
                         TrendDto dto = new TrendDto();
                         double randomNum = ThreadLocalRandom.current().nextInt(200, 240 + 1);
@@ -203,9 +213,9 @@ public class TrendServiceImpl implements TrendService {
         }
     }
 
-    private void getMinuteWiseData(PowerType powerType, List<TrendDto> data) {
+    private void getMinuteWiseData(PowerType powerType, List<TrendDto> data, long daysDiff) {
         if (powerType != null) {
-            for (int i = 0; i < 30; i++) {
+            for (int i = 0; i < daysDiff; i++) {
                 for (int j = 0; j < 24; j++) {
                     for (int k = 0; k < 60; k++) {
                         TrendDto dto = new TrendDto();
@@ -226,7 +236,7 @@ public class TrendServiceImpl implements TrendService {
         }
         else {
             if (PowerType.GENERATION.equals(powerType)) {
-                for (int i = 0; i < 30; i++) {
+                for (int i = 0; i < daysDiff; i++) {
                     for (int j = 0; j < 24; j++) {
                         for (int k = 0; k < 60; k++) {
                             TrendDto dto = new TrendDto();
@@ -244,7 +254,7 @@ public class TrendServiceImpl implements TrendService {
                 }
             }
             else {
-                for (int i = 0; i < 30; i++) {
+                for (int i = 0; i < daysDiff; i++) {
                     for (int j = 0; j < 24; j++) {
                         for (int k = 0; k < 60; k++) {
                             TrendDto dto = new TrendDto();

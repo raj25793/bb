@@ -1,5 +1,6 @@
 package org.test.falcon.dw.controller;
 
+import java.text.ParseException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,7 @@ public class TrendController {
                             required = true) String toTime,
             @ApiParam @RequestParam(required = true) String deviceId,
             @ApiParam @RequestParam(required = true) RangeType rangeType,
-            @ApiParam @RequestParam(required = false) PowerType powerType) {
+            @ApiParam @RequestParam(required = false) PowerType powerType) throws ParseException {
         List<TrendDto> trendData = trendService.getDataPoints(fromTime, toTime, deviceId, rangeType, powerType);
         return new GenericApiResponse(trendData);
     }
