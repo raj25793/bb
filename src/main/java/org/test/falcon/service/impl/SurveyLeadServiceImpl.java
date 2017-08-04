@@ -1,8 +1,11 @@
 package org.test.falcon.service.impl;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -11,6 +14,8 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 import org.test.falcon.constant.Constant;
 import org.test.falcon.exception.ProAPIException;
+import org.test.falcon.mongo.document.ChildDevice;
+import org.test.falcon.mongo.document.Device;
 import org.test.falcon.mongo.document.Lead;
 import org.test.falcon.mongo.document.User;
 import org.test.falcon.service.SurveyLeadService;
@@ -63,6 +68,54 @@ public class SurveyLeadServiceImpl implements SurveyLeadService {
         }
 
         return surveyLead;
+    }
+
+    @Override
+    public List<Lead> getLeadsOfUser(String userId) {
+        User user = userService.findUserById(userId);
+        if (user == null) {
+            throw new ProAPIException("User doesn't exist.");
+        }
+        List<Lead> leads = user.getLeads();
+        return leads;
+    }
+
+    @Override
+    public List<Device> getDevices(String userId, String leadId) {
+        User user = userService.findUserById(userId);
+        if (user == null) {
+            throw new ProAPIException("User doesn't exist.");
+        }
+        if (CollectionUtils.isNotEmpty(user.getLeads())) {
+            for (Lead l : user.getLeads()) {
+                if (leadId.equals(l.getId())) {
+                    return l.getDevices();
+                }
+            }
+        }
+        return Collections.emptyList();
+    }
+
+    @Override
+    public List<ChildDevice> getChildDevices(String userId, String leadId, String masterDevId) {
+        User user = userService.findUserById(userId);
+        if (user == null) {
+            throw new ProAPIException("User doesn't exist.");
+        }
+        if (CollectionUtils.isNotEmpty(user.getLeads())) {
+            for (Lead l : user.getLeads()) {
+                if (leadId.equals(l.getId())) {
+                    if (CollectionUtils.isNotEmpty(l.getDevices())) {
+                        for (Device device : l.getDevices()) {
+                            if (masterDevId.equals(device.getDeviceId())) {
+                                return device.getChildDevices();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return Collections.emptyList();
     }
 
 }

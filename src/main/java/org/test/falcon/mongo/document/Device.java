@@ -1,9 +1,9 @@
 package org.test.falcon.mongo.document;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Field;
 import org.test.falcon.mongo.Enum.DeviceType;
@@ -15,11 +15,14 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class Device implements Serializable {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 1L;
 
     @Id
+    private String            id;
+
+    @Field(value = "dev_id")
     private String            deviceId;
 
     @Field(value = "type")
@@ -28,8 +31,18 @@ public class Device implements Serializable {
     @Field(value = "cds")
     private List<ChildDevice> childDevices;
 
-    @Field(value = "created_at")
-    private Date              createdAt;
+    public Device() {
+        this.id = ObjectId.get().toHexString();
+        ;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getDeviceId() {
         return deviceId;
@@ -53,14 +66,6 @@ public class Device implements Serializable {
 
     public void setChildDevices(List<ChildDevice> childDevices) {
         this.childDevices = childDevices;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
     }
 
 }

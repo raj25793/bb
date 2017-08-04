@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.test.falcon.constant.Constant;
 import org.test.falcon.constant.ResponseCodes;
 import org.test.falcon.constant.ResponseErrorMessages;
+import org.test.falcon.exception.UnauthorizedException;
 import org.test.falcon.mongo.document.User;
 import org.test.falcon.pojo.response.GenericApiResponse;
 import org.test.falcon.service.UserService;
@@ -41,12 +42,12 @@ public class LoginController {
             @RequestParam(required = false) String password) {
         User user = userService.login(userName, password);
         if (user == null) {
-            return new GenericApiResponse(
+            throw new UnauthorizedException(
                     ResponseErrorMessages.User.USER_NAME_PASSWORD_INCORRECT,
                     ResponseCodes.INVALID_USERNAME);
         }
         if (!password.equals(user.getPassword())) {
-            return new GenericApiResponse(ResponseErrorMessages.User.BAD_CREDENTIAL, ResponseCodes.BAD_CREDENTIAL);
+            throw new UnauthorizedException(ResponseErrorMessages.User.BAD_CREDENTIAL, ResponseCodes.BAD_CREDENTIAL);
         }
         Cookie loginCookie = new Cookie(Constant.JSESSIONID, user.getId());
         // setting cookie to expiry in 30 mins

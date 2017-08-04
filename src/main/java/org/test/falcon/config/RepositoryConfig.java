@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowire;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.PropertySources;
@@ -28,7 +27,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
-@Configuration
+//@Configuration
 @EnableTransactionManagement
 @PropertySources({ @PropertySource("classpath:application.properties") })
 @EnableJpaRepositories(basePackages = { "org.test" })
@@ -38,22 +37,22 @@ public class RepositoryConfig {
     private String                      entityManagerPackagesToScan;
 
     @Value("${db.url}")
-    private String               falconDbUrl;
+    private String                      falconDbUrl;
 
     @Value("${db.driver}")
-    private String               dbDriver;
+    private String                      dbDriver;
 
     @Value("${db.username}")
-    private String               dbUserName;
+    private String                      dbUserName;
 
     @Value("${db.password}")
-    private String               dbPassword;
+    private String                      dbPassword;
 
     @Value("${hibernate.dialect}")
     private String                      HIBERNATE_DIALECT;
 
     @Value("${show.sql}")
-    private boolean              showSql;
+    private boolean                     showSql;
 
     private static EntityManagerFactory falconEntityManagerFactory;
 
@@ -80,7 +79,7 @@ public class RepositoryConfig {
 
     /**
      * Creating hibernate jpa adapter
-     * 
+     *
      * @return
      */
     private HibernateJpaVendorAdapter createJPAAdapter() {

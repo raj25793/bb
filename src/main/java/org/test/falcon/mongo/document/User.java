@@ -11,12 +11,14 @@ import org.test.falcon.enums.DocumentTypes;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
+import io.swagger.annotations.ApiModelProperty;
+
 @JsonInclude(value = Include.NON_NULL)
 @Document(collection = "user")
 public class User extends UserLogin implements Serializable {
 
     /**
-     * 
+     *
      */
     private static final long   serialVersionUID = 1L;
 
@@ -36,6 +38,7 @@ public class User extends UserLogin implements Serializable {
     private String              phone;
 
     @Field(value = "leads")
+    @ApiModelProperty(hidden = true)
     private List<Lead>          leads;
 
     @Field(value = "updated_at")

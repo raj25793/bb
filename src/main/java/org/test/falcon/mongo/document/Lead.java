@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -17,78 +17,101 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class Lead implements Serializable {
 
     /**
-     * 
+     *
      */
-    private static final long           serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     @Id
-    private String                      id;
+    private String            id;
 
     @Field(value = "name")
-    private String                      name;
+    private String            name;
 
     @Field(value = "address")
-    private String                      address;
+    private String            address;
 
     @Field(value = "landmark")
-    private String                      landmark;
+    private String            landmark;
 
-    @Field(value = "location")
-    private LocationPoint<GeoJsonPoint> locationPoint;
+    @Field(value = "latitude")
+    private Double            latitude;
+
+    @Field(value = "longitude")
+    private Double            longitude;
 
     @Field(value = "city")
-    private Integer                     cityId;
+    private Integer           cityId;
 
     @Field(value = "state")
-    private Integer                     stateId;
+    private Integer           stateId;
 
     @Field(value = "phone")
-    private String                      phone;
+    private String            phone;
 
     @Field(value = "email")
-    private String                      emailId;
+    private String            emailId;
 
     @Field(value = "discom")
-    private Integer                     discomId;
+    private Integer           discomId;
 
     @Field(value = "acc_name")
-    private String                      accountName;
+    private String            accountName;
 
     @Field(value = "cat_id")
-    private Integer                     categoryId;
+    private Integer           categoryId;
 
     @Field(value = "contact_person")
-    private String                      contactPerson;
+    private String            contactPerson;
 
     @Field(value = "sanc_load")
-    private Double                      sancLoad;
+    private Double            sancLoad;
 
     @Field(value = "solr_type")
-    private Integer                     solrPvSystemTypeId;
+    private Integer           solrPvSystemTypeId;
 
     @Field(value = "solr_oem")
-    private Integer                     solrPanelOemId;
+    private Integer           solrPanelOemId;
 
     @Field(value = "solr_spec")
-    private String                      solrPanelSpecification;
+    private String            solrPanelSpecification;
 
     @Field(value = "solr_panels")
-    private Integer                     solrPanelQuantity;
+    private Integer           solrPanelQuantity;
 
     @Field(value = "inverter_oem")
-    private Integer                     inverterOemId;
+    private Integer           inverterOemId;
 
     @Field(value = "inverter_spec")
-    private String                      inverterSpecification;
+    private String            inverterSpecification;
 
     @Field(value = "inverters")
-    private Integer                     inverterQuantity;
+    private Integer           inverterQuantity;
 
     @Field(value = "comm_date")
-    private Date                        commissioningDate;
+    private Date              commissioningDate;
 
     @Field(value = "devices")
-    private List<Device>                devices;
+    private List<Device>      devices;
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
+
+    public Lead() {
+        this.id = ObjectId.get().toHexString();
+    }
 
     public List<Device> getDevices() {
         return devices;
@@ -220,14 +243,6 @@ public class Lead implements Serializable {
 
     public String getAddress() {
         return address;
-    }
-
-    public LocationPoint<GeoJsonPoint> getLocationPoint() {
-        return locationPoint;
-    }
-
-    public void setLocationPoint(LocationPoint<GeoJsonPoint> locationPoint) {
-        this.locationPoint = locationPoint;
     }
 
     public void setAddress(String address) {
