@@ -33,7 +33,6 @@ public class Device implements Serializable {
 
     public Device() {
         this.id = ObjectId.get().toHexString();
-        ;
     }
 
     public String getId() {
