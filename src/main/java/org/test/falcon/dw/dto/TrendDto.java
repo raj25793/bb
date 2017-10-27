@@ -1,6 +1,7 @@
 package org.test.falcon.dw.dto;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
@@ -9,13 +10,17 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 public class TrendDto implements Serializable {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 1L;
 
     private Double            genPower;
 
     private Double            consumedPower;
+
+    private Date              from;
+
+    private Date              to;
 
     private Integer           minute;
 
@@ -26,6 +31,22 @@ public class TrendDto implements Serializable {
     private Integer           month;
 
     private Integer           year;
+
+    public Date getFrom() {
+        return from;
+    }
+
+    public void setFrom(Date from) {
+        this.from = from;
+    }
+
+    public Date getTo() {
+        return to;
+    }
+
+    public void setTo(Date to) {
+        this.to = to;
+    }
 
     public Double getGenPower() {
         return genPower;
