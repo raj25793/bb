@@ -59,7 +59,7 @@ public class TrendServiceImpl implements TrendService {
             getMinuteWiseData(powerType, data, daysDiff);
         }
         else if (RangeType.HOUR.equals(rangeType)) {
-            getHourWiseData(powerType, data, from, to, deviceId);
+            getHourWiseData(data, from, to, deviceId);
         }
         else if (RangeType.DAY.equals(rangeType)) {
             getDayWiseData(powerType, data, daysDiff);
@@ -233,7 +233,7 @@ public class TrendServiceImpl implements TrendService {
     // }
     // }
 
-    private void getHourWiseData(PowerType powerType, List<TrendDto> data, Date from, Date to, String deviceId) {
+    private void getHourWiseData(List<TrendDto> data, Date from, Date to, String deviceId) {
         Date fromDate = getStartOfHour(from);
         Date toDate = DateUtils.addHours(fromDate, 1);
 
