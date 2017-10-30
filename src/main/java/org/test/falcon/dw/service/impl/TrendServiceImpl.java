@@ -250,10 +250,14 @@ public class TrendServiceImpl implements TrendService {
 
             TrendDto dto = new TrendDto();
             if (endFeed != null && startFeed != null) {
-                dto.setConsumedPower(
-                        Double.valueOf(
-                                endFeed.getChildDevices().get(0).getReadings().get("energy")
-                                        - startFeed.getChildDevices().get(0).getReadings().get("energy")));
+                if (endFeed.getChildDevices().get(0).getReadings().get("energy") != null
+                        && startFeed.getChildDevices().get(0).getReadings().get("energy") != null) {
+                    dto.setConsumedPower(
+                            Double.valueOf(
+                                    endFeed.getChildDevices().get(0).getReadings().get("energy")
+                                            - startFeed.getChildDevices().get(0).getReadings().get("energy")));
+                }
+
                 dto.setTo(endFeed.getChildDevices().get(0).getCreatedAt());
                 dto.setFrom(startFeed.getChildDevices().get(0).getCreatedAt());
             }
@@ -276,10 +280,14 @@ public class TrendServiceImpl implements TrendService {
 
             TrendDto dto = new TrendDto();
             if (endFeed != null && startFeed != null) {
-                dto.setConsumedPower(
-                        Double.valueOf(
-                                endFeed.getChildDevices().get(0).getReadings().get("energy")
-                                        - startFeed.getChildDevices().get(0).getReadings().get("energy")));
+                if (endFeed.getChildDevices().get(0).getReadings().get("energy") != null
+                        && startFeed.getChildDevices().get(0).getReadings().get("energy") != null) {
+                    dto.setConsumedPower(
+                            Double.valueOf(
+                                    endFeed.getChildDevices().get(0).getReadings().get("energy")
+                                            - startFeed.getChildDevices().get(0).getReadings().get("energy")));
+                }
+
                 dto.setTo(endFeed.getChildDevices().get(0).getCreatedAt());
                 dto.setFrom(startFeed.getChildDevices().get(0).getCreatedAt());
             }
