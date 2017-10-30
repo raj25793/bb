@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -241,26 +242,28 @@ public class TrendServiceImpl implements TrendService {
             Query query = new Query(
                     Criteria.where(Constant.CREATED_AT).gte(fromDate).and(Constant.MASTER_DEVICE_ID).is(deviceId));
             query.with(new Sort(Direction.ASC, Constant.CREATED_AT)).limit(1);
-            MasterDeviceFeed startFeed = mongoTemplate.find(query, MasterDeviceFeed.class).get(0);
-
-            Query query2 = new Query(
-                    Criteria.where(Constant.CREATED_AT).lte(toDate).and(Constant.MASTER_DEVICE_ID).is(deviceId));
-            query2.with(new Sort(Direction.DESC, Constant.CREATED_AT)).limit(1);
-            MasterDeviceFeed endFeed = mongoTemplate.find(query2, MasterDeviceFeed.class).get(0);
-
+            List<MasterDeviceFeed> startFeeds = mongoTemplate.find(query, MasterDeviceFeed.class);
             TrendDto dto = new TrendDto();
-            if (endFeed != null && startFeed != null) {
-                if (endFeed.getChildDevices().get(0).getReadings().get("energy") != null
-                        && startFeed.getChildDevices().get(0).getReadings().get("energy") != null) {
-                    dto.setConsumedPower(
-                            Double.valueOf(
-                                    endFeed.getChildDevices().get(0).getReadings().get("energy")
-                                            - startFeed.getChildDevices().get(0).getReadings().get("energy")));
-                }
+            dto.setTo(toDate);
+            dto.setFrom(fromDate);
 
-                dto.setTo(endFeed.getChildDevices().get(0).getCreatedAt());
-                dto.setFrom(startFeed.getChildDevices().get(0).getCreatedAt());
+            if (CollectionUtils.isNotEmpty(startFeeds)) {
+                MasterDeviceFeed startFeed = startFeeds.get(0);
+                Query query2 = new Query(
+                        Criteria.where(Constant.CREATED_AT).lte(toDate).and(Constant.MASTER_DEVICE_ID).is(deviceId));
+                query2.with(new Sort(Direction.DESC, Constant.CREATED_AT)).limit(1);
+                MasterDeviceFeed endFeed = mongoTemplate.find(query2, MasterDeviceFeed.class).get(0);
+                if (endFeed != null && startFeed != null) {
+                    if (endFeed.getChildDevices().get(0).getReadings().get("power") != null
+                            && startFeed.getChildDevices().get(0).getReadings().get("power") != null) {
+                        dto.setConsumedPower(
+                                Double.valueOf(
+                                        endFeed.getChildDevices().get(0).getReadings().get("power")
+                                                - startFeed.getChildDevices().get(0).getReadings().get("power")));
+                    }
+                }
             }
+
             data.add(dto);
 
             fromDate = toDate;
@@ -271,25 +274,28 @@ public class TrendServiceImpl implements TrendService {
             Query query = new Query(
                     Criteria.where(Constant.CREATED_AT).gte(fromDate).and(Constant.MASTER_DEVICE_ID).is(deviceId));
             query.with(new Sort(Direction.ASC, Constant.CREATED_AT)).limit(1);
-            MasterDeviceFeed startFeed = mongoTemplate.find(query, MasterDeviceFeed.class).get(0);
-
-            Query query2 =
-                    new Query(Criteria.where(Constant.CREATED_AT).lte(to).and(Constant.MASTER_DEVICE_ID).is(deviceId));
-            query2.with(new Sort(Direction.DESC, Constant.CREATED_AT)).limit(1);
-            MasterDeviceFeed endFeed = mongoTemplate.find(query2, MasterDeviceFeed.class).get(0);
-
             TrendDto dto = new TrendDto();
-            if (endFeed != null && startFeed != null) {
-                if (endFeed.getChildDevices().get(0).getReadings().get("energy") != null
-                        && startFeed.getChildDevices().get(0).getReadings().get("energy") != null) {
-                    dto.setConsumedPower(
-                            Double.valueOf(
-                                    endFeed.getChildDevices().get(0).getReadings().get("energy")
-                                            - startFeed.getChildDevices().get(0).getReadings().get("energy")));
+            dto.setTo(toDate);
+            dto.setFrom(fromDate);
+            List<MasterDeviceFeed> startFeeds = mongoTemplate.find(query, MasterDeviceFeed.class);
+
+            if (CollectionUtils.isNotEmpty(startFeeds)) {
+                MasterDeviceFeed startFeed = startFeeds.get(0);
+                Query query2 = new Query(
+                        Criteria.where(Constant.CREATED_AT).lte(to).and(Constant.MASTER_DEVICE_ID).is(deviceId));
+                query2.with(new Sort(Direction.DESC, Constant.CREATED_AT)).limit(1);
+                MasterDeviceFeed endFeed = mongoTemplate.find(query2, MasterDeviceFeed.class).get(0);
+
+                if (endFeed != null && startFeed != null) {
+                    if (endFeed.getChildDevices().get(0).getReadings().get("power") != null
+                            && startFeed.getChildDevices().get(0).getReadings().get("power") != null) {
+                        dto.setConsumedPower(
+                                Double.valueOf(
+                                        endFeed.getChildDevices().get(0).getReadings().get("power")
+                                                - startFeed.getChildDevices().get(0).getReadings().get("power")));
+                    }
                 }
 
-                dto.setTo(endFeed.getChildDevices().get(0).getCreatedAt());
-                dto.setFrom(startFeed.getChildDevices().get(0).getCreatedAt());
             }
 
             data.add(dto);
