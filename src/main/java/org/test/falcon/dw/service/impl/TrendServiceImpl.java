@@ -254,12 +254,12 @@ public class TrendServiceImpl implements TrendService {
                 query2.with(new Sort(Direction.DESC, Constant.CREATED_AT)).limit(1);
                 MasterDeviceFeed endFeed = mongoTemplate.find(query2, MasterDeviceFeed.class).get(0);
                 if (endFeed != null && startFeed != null) {
-                    if (endFeed.getChildDevices().get(0).getReadings().get("power") != null
-                            && startFeed.getChildDevices().get(0).getReadings().get("power") != null) {
+                    if (endFeed.getChildDevices().get(0).getReadings().get("energy") != null
+                            && startFeed.getChildDevices().get(0).getReadings().get("energy") != null) {
                         dto.setConsumedPower(
                                 Double.valueOf(
-                                        endFeed.getChildDevices().get(0).getReadings().get("power")
-                                                - startFeed.getChildDevices().get(0).getReadings().get("power")));
+                                        endFeed.getChildDevices().get(0).getReadings().get("energy")
+                                                - startFeed.getChildDevices().get(0).getReadings().get("energy")));
                     }
                 }
             }
@@ -287,12 +287,12 @@ public class TrendServiceImpl implements TrendService {
                 MasterDeviceFeed endFeed = mongoTemplate.find(query2, MasterDeviceFeed.class).get(0);
 
                 if (endFeed != null && startFeed != null) {
-                    if (endFeed.getChildDevices().get(0).getReadings().get("power") != null
-                            && startFeed.getChildDevices().get(0).getReadings().get("power") != null) {
+                    if (endFeed.getChildDevices().get(0).getReadings().get("energy") != null
+                            && startFeed.getChildDevices().get(0).getReadings().get("energy") != null) {
                         dto.setConsumedPower(
                                 Double.valueOf(
-                                        endFeed.getChildDevices().get(0).getReadings().get("power")
-                                                - startFeed.getChildDevices().get(0).getReadings().get("power")));
+                                        endFeed.getChildDevices().get(0).getReadings().get("energy")
+                                                - startFeed.getChildDevices().get(0).getReadings().get("energy")));
                     }
                 }
 
