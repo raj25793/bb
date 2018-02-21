@@ -31,11 +31,33 @@ public class Contract implements Serializable {
     @Column(name = "broker_acc_id")
     private String            brokerAcc;
 
+    @Column(name = "buyer_acc_id")
+    private String            buyerAcc;
+
+    @Column(name = "delay")
+    private Integer           delay;
+
     @Column(name = "commission_to_broker")
     private Double            commissionToBroker;
 
     @Column(name = "commission_to_buyer")
     private Double            commissionToBuyer;
+
+    public String getBuyerAcc() {
+        return buyerAcc;
+    }
+
+    public void setBuyerAcc(String buyerAcc) {
+        this.buyerAcc = buyerAcc;
+    }
+
+    public Integer getDelay() {
+        return delay;
+    }
+
+    public void setDelay(Integer delay) {
+        this.delay = delay;
+    }
 
     public Integer getId() {
         return id;
